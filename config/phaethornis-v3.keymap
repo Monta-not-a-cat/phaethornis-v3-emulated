@@ -1,0 +1,458 @@
+//#include <dt-bindings/zmk/input_transform.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+
+// AZERTY : numbers are shifted, not direct access
+#define S_N0  &kp LS(N0)
+#define S_N1  &kp LS(N1)
+#define S_N2  &kp LS(N2)
+#define S_N3  &kp LS(N3)
+#define S_N4  &kp LS(N4)
+#define S_N5  &kp LS(N5)
+#define S_N6  &kp LS(N6)
+#define S_N7  &kp LS(N7)
+#define S_N8  &kp LS(N8)
+#define S_N9  &kp LS(N9)
+
+/**
+ * Arsenik Symbols:
+ *   ^<>$% @&*'`
+ *   {()}= \+-/"
+ *   ~[]_# |!;:?
+ */
+
+// AZERTY first row
+#define S_CARET &kp RA(N9)
+#define S_LT    &kp NUBS
+#define S_GT    &kp PIPE2
+#define S_DLLR  &kp RBKT
+#define S_PRCNT &kp LS(SQT)
+#define S_AT    &kp RA(N0)
+#define S_AMPS  &kp N1
+#define S_STAR  &kp BSLH
+#define S_SQT   &kp N4
+#define S_GRAVE &digraph RA(N7) SPACE
+
+// AZERTY second row
+#define S_LBRC  &kp RA(N4)
+#define S_LPAR  &kp N5
+#define S_RPAR  &kp MINUS
+#define S_RBRC  &kp RA(EQUAL)
+#define S_EQUAL &kp EQUAL
+#define S_BSLH  &kp RA(N8)
+#define S_PLUS  &kp PLUS
+#define S_MINUS &kp N6
+#define S_FSLH  &kp LS(DOT)
+#define S_DQT   &kp N3
+
+// AZERTY third row
+#define S_TILDE  &digraph RA(N2) SPACE
+#define S_LBKT   &kp RA(N5)
+#define S_RBKT   &kp RA(MINUS)
+#define S_UNDER  &kp N8
+#define S_HASH   &kp RA(N3)
+#define S_PIPE   &kp RA(N6)
+#define S_EXCL   &kp FSLH
+#define S_SEMI   &kp COMMA
+#define S_COLON  &kp DOT
+#define S_QMARK  &kp LS(M)
+
+// AZERTY extra
+
+#define S_COMMA  &kp M
+#define S_DOT    &kp LS(COMMA)
+#define S_EURO   &kp RA(E)
+#define S_DEGR  &kp LS(MINUS) // °
+
+// GRAVE and TILDE are no dead keys on Linux
+#ifdef LINUX
+    #undef S_GRAVE
+    #define S_GRAVE &kp RA(N7)
+    #undef S_TILDE
+    #define S_TILDE &kp RA(N2)
+#endif
+
+// special chars (available in windows AZERTY)
+#define C_EACU  &kp N2  // é
+#define C_AGRV  &kp N0  // à
+#define C_EGRV  &kp N7  // è
+#define C_UGRV  &kp SQT // ù
+#define C_CCDL  &kp N9  // ç
+#define C_MU    &kp PIPE // µ
+
+// circumflex accent
+#define C_ACRC &digraph LBKT Q // â
+#define C_ECRC &digraph LBKT E // ê
+#define C_ICRC &digraph LBKT I // î
+#define C_OCRC &digraph LBKT O // ô
+#define C_UCRC &digraph LBKT U // û
+#define C_YCRC &digraph LBKT Y // ŷ
+
+// diaeresis
+#define C_ADIA &digraph LBRC Q // ä
+#define C_EDIA &digraph LBRC E // ë
+#define C_IDIA &digraph LBRC I // ï
+#define C_ODIA &digraph LBRC O // ö
+#define C_UDIA &digraph LBRC U // ü
+#define C_YDIA &digraph LBRC Y // ÿ
+
+
+// ===== SHORTCUTS ======
+
+#define X_UNDO  &kp RC(W)
+#define X_CUT   &kp RC(X)
+#define X_COPY  &kp RC(C)
+#define X_PASTE &kp RC(V)
+#define X_REDO  &kp RC(Y)
+
+#define X_CTL_W &kp RC(Z)
+#define X_SAVE  &kp RC(S)
+#define X_ALL   &kp RC(Q)
+
+
+// ======================================
+// =============== LAYERS ===============
+// ======================================
+
+// Human-readable constants for the layer indexes.
+// Make sure to update this table if you edit the order / number of layers in the keymap.
+#define BASE          0
+#define ODK           1
+#define SYMBOLS       2
+#define NUMNAV        3
+#define FUNCTION      4
+#define PARAM         5
+
+&sl { ignore-modifiers; }; // keep one-shot-mods when chained into a one-shot-layer
+&sk { quick-release; };    // must-have! (lots of false positives otherwise)
+
+#define EZ_SL(layer)  bsl (layer) (layer)
+#define EZ_SK(mod)    bsk (mod) (mod)
+#define EZ_LSK(mod)   lbsk (mod) (mod)
+
+// ======================================
+// ================= HRM ================
+// ======================================
+
+#define HRM_Q   &hrm LGUI Q
+#define HRM_S   &hrm LALT S
+#define HRM_E   &hrm LCTL E
+#define HRM_N   &hrm LSHIFT N
+
+#define HRM_R   &hrm LSHIFT R
+#define HRM_T   &hrm RCTL T
+#define HRM_I   &hrm LALT I
+#define HRM_U   &hrm RGUI U
+
+#define HRM_4   &hrm LSHIFT LS(N4)
+#define HRM_5   &hrm RCTL LS(N5)
+#define HRM_6   &hrm LALT LS(N6)
+#define HRM_0   &hrm RGUI LS(N0)
+
+
+// ======================================
+// ========= DEADKEY & THUMBS ===========
+// ======================================
+
+#define SL_ODK        &EZ_SL(ODK)
+
+#define LTHUMB_HOME   &EZ_SK(LSHIFT)
+#define LTHUMB_REACH  &lt NUMNAV TAB
+#define RTHUMB_REACH  &kp SPACE
+#define RTHUMB_HOME   &lt SYMBOLS BACKSPACE
+
+// Go to fuction with both THUM_B REACH
+#define NN_RTHUMB_REACH &EZ_SL(FUNCTION)
+
+
+// ======================================
+// ============== TIMINGS ===============
+// ======================================
+
+//HRM and behaviors
+#define TAPPING_TERM 250
+#define SHORT_TAPPING_TERM 180
+#define QUICK_TAP 150
+
+//COMBOS
+#define REQUIRE_PRIOR_IDLE 250
+#define REQUIRE_PRIOR_IDLE_FAST 150
+#define TIMEOUT_MS_FAST 10
+#define TIMEOUT_MS_SLOW 30
+
+
+
+// ╭──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────╮
+//           00     01     02     03        04     05     06     07
+// ├──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┤
+//    08     09     10     11     12        13     14     15     16     17
+// ├──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┤
+//    18     19     20     21                      22     23     24     25
+// ╰──────┴──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┴──────┴──────╯
+//                         26     27        28     29
+//                      ╰──────┴──────╯  ╰──────┴──────╯
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        esc {
+            bindings = <&kp ESCAPE>;
+            key-positions = <1 0>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        enter {
+            bindings = <&kp ENTER>;
+            key-positions = <16 15 14>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_SLOW>;
+            slow-release;
+        };
+
+        ctrl_backspace {
+            bindings = <&kp LC(BACKSPACE)>;
+            key-positions = <6 7>;
+            require-prior-idle-ms = <REQUIRE_PRIOR_IDLE_FAST>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        shift_tab {
+            bindings = <&kp LS(TAB)>;
+            key-positions = <9 10>;
+            require-prior-idle-ms = <REQUIRE_PRIOR_IDLE_FAST>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        printscreen {
+            bindings = <&kp PRINTSCREEN>;
+            key-positions = <21 19 10>;
+            require-prior-idle-ms = <REQUIRE_PRIOR_IDLE>;
+            timeout-ms = <TIMEOUT_MS_SLOW>;
+        };
+
+        capslock {
+            bindings = <&kp CAPSLOCK>;
+            key-positions = <20 21>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        numpad_divide {
+            bindings = <&kp KP_DIVIDE>;
+            key-positions = <6 15>;
+            layers = <NUMNAV>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        numpad_mult {
+            bindings = <&kp KP_ASTERISK>;
+            key-positions = <15 23>;
+            layers = <NUMNAV>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        numpad_plus {
+            bindings = <&kp KP_PLUS>;
+            key-positions = <16 24>;
+            layers = <NUMNAV>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        numpad_minus {
+            bindings = <&kp KP_MINUS>;
+            key-positions = <16 7>;
+            layers = <NUMNAV>;
+            require-prior-idle-ms = <0>;
+            timeout-ms = <TIMEOUT_MS_FAST>;
+        };
+
+        go_to_params {
+            bindings = <&tog PARAM>;
+            key-positions = <5 6 7>;
+            layers = <FUNCTION PARAM>;
+            require-prior-idle-ms = <REQUIRE_PRIOR_IDLE>;
+            timeout-ms = <TIMEOUT_MS_SLOW>;
+        };
+    };
+};
+
+
+/ {
+    behaviors {
+
+        // AZERTY SPECIFIC MOD MORPH
+        dash: minus_qmark {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <S_MINUS>, <S_QMARK>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        comma: comma_semi {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <S_COMMA>, <S_SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        dot: dot_colon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <S_DOT>, <S_COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        }
+
+        hrm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <TAPPING_TERM>;
+            quick-tap-ms = <QUICK_TAP>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+
+        lth: lt_hold_preferred { // same as lt, but with hold-preferred
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <SHORT_TAPPING_TERM>;
+            quick-tap-ms = <QUICK_TAP>;
+            flavor = "hold-preferred";
+            bindings = <&mo>, <&kp>; //&mo = momentary layer
+        };
+
+        // like ZMK's sticky layer (sl) but with a more robust timing
+        osl: one_shot_layer {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings = <&macro_param_1to1>, <&macro_tap &sl MACRO_PLACEHOLDER>;
+        };
+
+        bsl: better_sticky_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <TAPPING_TERM>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&osl>;
+        };
+
+        // like ZMK's sticky key (sk) but with a more robust timing
+        osm: one_shot_modifier {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings = <&macro_param_1to1>, <&macro_tap &sk MACRO_PLACEHOLDER>;
+        };
+
+        bsk: better_sticky_key {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <TAPPING_TERM>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&osm>;
+        };
+
+
+        // Macro to tap Ergo‑L’s ODK before the specified key
+        odk: one_dead_key_macro {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings
+            = <&macro_tap &kp O>
+            , <&macro_param_1to1>
+            , <&macro_tap &kp MACRO_PLACEHOLDER>
+            ;
+        };
+
+    };
+};
+
+/ {
+    macros {
+        digraph: digraph {
+            compatible = "zmk,behavior-macro-two-param";
+            #binding-cells = <2>;
+            tap-ms = <0>;
+            wait-ms = <0>;
+            bindings = <
+            &macro_param_1to1 &kp MACRO_PLACEHOLDER
+            &macro_param_2to1 &kp MACRO_PLACEHOLDER>;
+        };
+    };
+};
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        base_layer {
+            display-name = "Base";
+            bindings = <
+                     &kp C    &kp O    &kp P    &kp Z       &dot       &kp SEMI    &kp D    SL_ODK
+            HRM_Q    HRM_S    HRM_E    HRM_N    &kp F       &kp L      HRM_R       HRM_T    HRM_I      HRM_U
+            &kp A    &kp X    &dash    &kp V                           &kp H       &kp G    &comma     &kp Y
+                            LTHUMB_HOME  LTHUMB_REACH       RTHUMB_REACH  RTHUMB_HOME
+            >;
+        };
+
+        one_dead_key {
+            display-name = "OneDeadKey";
+            bindings = <
+                      C_CCDL    &none      C_OCRC    &kp W       &none    &kp J      S_UNDER   &none
+            C_AGRV    C_EACU    C_EGRV     C_ECRC    &kp B       S_AT     &none      C_ICRC    C_IDIA    &none
+            C_ACRC    &none     &kp RA(W)  &none                          &kp K      C_MU      &none     C_UCRC
+                                LTHUMB_HOME   LTHUMB_REACH       RTHUMB_REACH  &kp BACKSPACE
+            >;
+        };
+
+        symbols_layer {
+            display-name = "Symbols";
+            bindings = <
+                       S_LT      S_GT      S_DLLR  S_PRCNT      S_PIPE    S_AMPS    S_STAR     S_SQT
+            S_LBRC     S_LPAR    S_RPAR    S_RBRC  S_EQUAL      S_BSLH    S_PLUS    S_MINUS    S_FSLH     S_DQT
+            S_CARET    S_LBKT    S_RBKT    S_HASH                         S_EXCL    S_SEMI     S_COLON    S_GRAVE
+                                 LTHUMB_HOME  LTHUMB_REACH      RTHUMB_REACH  &kp BACKSPACE
+            >;
+        };
+
+        num_nav {
+            display-name = "NumNav";
+            bindings = <
+                    &none       &kp UP      &none        &kp DEL         S_DEGR    S_N7     S_N8     S_N9
+            &none   &kp LEFT    &kp DOWN    &kp RIGHT    &none           S_EURO    HRM_4    HRM_5    HRM_6    HRM_0
+            &none   X_UNDO      &none       X_REDO                                 S_N1     S_N2     S_N3     S_DOT
+                                            LTHUMB_HOME  &none           NN_RTHUMB_REACH    &kp BACKSPACE
+            >;
+        };
+
+        func {
+            display-name = "Function";
+            bindings = <
+                       &kp F1    &kp F2    &kp F3   &kp F12     &none    &none       &none      &none
+            &kp F10    &kp F4    &kp F5    &kp F6   &none       &none    &kp RSHIFT  &kp RCTRL  &kp LALT  &kp RGUI
+            &kp F11    &kp F7    &kp F8    &kp F9                        &none       &none      &none     &none
+                                  LTHUMB_HOME  LTHUMB_REACH     RTHUMB_REACH  &kp BACKSPACE
+            >;
+        };
+
+        params {
+            display-name = "Params";
+            bindings = <
+                     &none    &none    &none    &none               &none           &none           &none           &none
+            &none    &none    &none    &none    &none               &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &none    &none
+            &none    &none    &none    &none                                        &bt BT_CLR      &none           &none    &bt BT_CLR_ALL
+                                       &none    &none               &none           &none
+            >;
+        };
+    };
+};
