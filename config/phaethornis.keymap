@@ -306,7 +306,7 @@
             #binding-cells = <0>;
             bindings = <S_DOT>, <S_COLON>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
-        }
+        };
 
         hrm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
