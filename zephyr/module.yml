@@ -1,4 +1,4 @@
-name: zmk-keyboard-phaethornis
+name: phaethornis
 build:
   settings:
     board_root: .
