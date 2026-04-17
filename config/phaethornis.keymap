@@ -228,7 +228,7 @@
 
         printscreen {
             bindings = <&kp PRINTSCREEN>;
-            key-positions = <21 19 10>;
+            key-positions = <19 20 21>;
             require-prior-idle-ms = <REQUIRE_PRIOR_IDLE>;
             timeout-ms = <TIMEOUT_MS_SLOW>;
         };
@@ -236,38 +236,6 @@
         capslock {
             bindings = <&kp CAPSLOCK>;
             key-positions = <20 21>;
-            require-prior-idle-ms = <0>;
-            timeout-ms = <TIMEOUT_MS_FAST>;
-        };
-
-        numpad_divide {
-            bindings = <&kp KP_DIVIDE>;
-            key-positions = <6 15>;
-            layers = <NUMNAV>;
-            require-prior-idle-ms = <0>;
-            timeout-ms = <TIMEOUT_MS_FAST>;
-        };
-
-        numpad_mult {
-            bindings = <&kp KP_ASTERISK>;
-            key-positions = <15 23>;
-            layers = <NUMNAV>;
-            require-prior-idle-ms = <0>;
-            timeout-ms = <TIMEOUT_MS_FAST>;
-        };
-
-        numpad_plus {
-            bindings = <&kp KP_PLUS>;
-            key-positions = <16 24>;
-            layers = <NUMNAV>;
-            require-prior-idle-ms = <0>;
-            timeout-ms = <TIMEOUT_MS_FAST>;
-        };
-
-        numpad_minus {
-            bindings = <&kp KP_MINUS>;
-            key-positions = <16 7>;
-            layers = <NUMNAV>;
             require-prior-idle-ms = <0>;
             timeout-ms = <TIMEOUT_MS_FAST>;
         };
@@ -396,7 +364,7 @@
             bindings = <
                       C_CCDL    &none      C_OCRC    &kp W       &none    &kp J      S_UNDER   &none
             C_AGRV    C_EACU    C_EGRV     C_ECRC    &kp B       S_AT     &none      C_ICRC    C_IDIA    &none
-            C_ACRC    &none     &kp RA(W)  &none                          &kp K      C_MU      &none     C_UCRC
+            C_ACRC    &none     S_TILDE    &none                          &kp K      C_MU      &none     C_UCRC
                                 LTHUMB_HOME   LTHUMB_REACH       RTHUMB_REACH  &kp BACKSPACE
             >;
         };
@@ -414,10 +382,10 @@
         num_nav {
             display-name = "NumNav";
             bindings = <
-                    &none       &kp UP      &none        &kp DEL         S_DEGR    S_N7     S_N8     S_N9
-            &none   &kp LEFT    &kp DOWN    &kp RIGHT    &none           S_EURO    HRM_4    HRM_5    HRM_6    HRM_0
-            &none   X_UNDO      &none       X_REDO                                 S_N1     S_N2     S_N3     S_DOT
-                                            LTHUMB_HOME  &none           NN_RTHUMB_REACH    &kp BACKSPACE
+                           &kp PG_UP   &kp UP      &kp PG_DN    &kp DEL         S_DEGR    S_N7     S_N8     S_N9
+            &kp HOME       &kp LEFT    &kp DOWN    &kp RIGHT    &kp END         S_EURO    HRM_4    HRM_5    HRM_6    HRM_0
+            &kp CAPSLOCK   X_UNDO      &none       X_REDO                                 S_N1     S_N2     S_N3     S_DOT
+                                                   LTHUMB_HOME  &none           NN_RTHUMB_REACH    &kp BACKSPACE
             >;
         };
 
@@ -434,7 +402,7 @@
         params {
             display-name = "Params";
             bindings = <
-                     &none    &none    &none    &none               &none           &none           &none           &none
+                     &none    &none    &none    &kp A               &none           &none           &none           &none
             &none    &none    &none    &none    &none               &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &none    &none
             &none    &none    &none    &none                                        &bt BT_CLR      &none           &none    &bt BT_CLR_ALL
                                        &none    &none               &none           &none
