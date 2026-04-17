@@ -158,9 +158,9 @@
 #define SL_ODK        &EZ_SL(ODK)
 
 #define LTHUMB_HOME   &EZ_SK(LSHIFT)
-#define LTHUMB_REACH  &lt NUMNAV TAB
+#define LTHUMB_REACH  &lth NUMNAV TAB
 #define RTHUMB_REACH  &kp SPACE
-#define RTHUMB_HOME   &lt SYMBOLS BACKSPACE
+#define RTHUMB_HOME   &lth SYMBOLS BACKSPACE
 
 // Go to fuction with both THUM_B REACH
 #define NN_RTHUMB_REACH &EZ_SL(FUNCTION)
@@ -363,7 +363,7 @@
             display-name = "OneDeadKey";
             bindings = <
                       C_CCDL    &none      C_OCRC    &kp W       &none    &kp J      S_UNDER   &none
-            C_AGRV    C_EACU    C_EGRV     C_ECRC    &kp B       S_AT     &none      C_ICRC    C_IDIA    &none
+            C_AGRV    C_EACU    C_EGRV     C_ECRC    &kp B       S_AT     &none      C_ICRC    C_IDIA    C_UGRV
             C_ACRC    &none     S_TILDE    &none                          &kp K      C_MU      &none     C_UCRC
                                 LTHUMB_HOME   LTHUMB_REACH       RTHUMB_REACH  &kp BACKSPACE
             >;
